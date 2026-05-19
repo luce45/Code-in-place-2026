@@ -1,0 +1,51 @@
+"""
+Karel Spiral Adventure
+======================
+Karel starts at (1, 1) facing East and walks an inward square spiral,
+placing a beeper on every cell it visits.
+
+World size assumed: 13 columns x 10 rows (1-indexed, Karel style)
+Starting position:  column 1, row 1, facing East
+
+Spiral side lengths: 9, 7, 7, 5, 5, 3, 3, 1
+  (each pair shrinks by 2 after each corner)
+"""
+
+from karel.stanfordkarel import *
+
+
+def turn_right():
+    """Karel has no turn_right, so we turn left three times."""
+    turn_left()
+    turn_left()
+    turn_left()
+
+
+def walk_and_beep(steps):
+    """Move forward `steps` times, placing a beeper on each new cell."""
+    for _ in range(steps):
+        move()
+        put_beeper()
+
+
+def spiral():
+    """
+    Walk an inward square spiral.
+    Side lengths shrink: 9, 7, 7, 5, 5, 3, 3, 1
+    After each straight segment, turn left to go inward.
+    """
+    put_beeper()                # beeper on starting cell
+
+    side_lengths = [9, 7, 7, 5, 5, 3, 3, 1]
+
+    for length in side_lengths:
+        walk_and_beep(length)
+        turn_left()
+
+
+def main():
+    spiral()
+
+
+if __name__ == "__main__":
+    run_karel_program()
